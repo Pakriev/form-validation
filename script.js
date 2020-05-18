@@ -24,9 +24,8 @@ function checkPassworMatch(input1, input2) {
 
 function checkEmail(input) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    
+    input.value = input.value.trim();
     if(re.test(input.value.trim())) {
-        input.value = input.value.trim();
         showSuccess(input);
     } else {
         showError(input, 'Введите корректный e-mail');
@@ -49,10 +48,10 @@ function checkId(input) {
 
 function checkRequired(inputArray) {
     inputArray.forEach(input => {
-        if(input.value.trim() === '') {
+        input.value = input.value.trim();
+        if(input.value === '') {
             showError(input, checkId(input));
         } else {
-            input.value = input.value.trim();
             showSuccess(input);
         }
     });
@@ -61,9 +60,10 @@ function checkRequired(inputArray) {
 
 function checkLength(input, min, max) {
     const label = (input.id === 'username') ? 'Имя' : 'Пароль';
-    if(input.value.length < min) {
+    input.value = input.value.trim();
+    if(input.value.trim().length < min) {
         showError(input, `${label} меньше ${min} символов`);
-    } else if(input.value.length > max) {
+    } else if(input.value.trim().length > max) {
         showError(input, `${label} больше ${max} символов`);
     } else {
         showSuccess(input);
